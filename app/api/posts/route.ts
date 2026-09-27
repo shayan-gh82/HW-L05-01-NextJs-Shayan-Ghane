@@ -13,6 +13,13 @@ export async function GET(request: Request) {
     ? Math.min(Math.max(requestedLimit, 1), 10)
     : 5;
 
-  const posts = await getPosts(safeStart, safeLimit);
-  return NextResponse.json(posts);
+  try {
+    const posts = await getPosts(safeStart, safeLimit);
+    return NextResponse.json(posts);
+  } catch {
+    return NextResponse.json(
+      { error: "The posts service is temporarily unavailable. Please try again." },
+      { status: 503, headers: { "Retry-After": "5" } },
+    );
+  }
 }

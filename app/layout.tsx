@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://shayan-nextjs-blog.shayanghane07.chatgpt.site"),
+  metadataBase: new URL("https://hw-l05-01-next-js-shayan-ghane.vercel.app"),
   title: {
     default: "Next.js Dynamic Blog - Shayan Ghane",
     template: "%s | The Daily Five",

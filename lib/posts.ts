@@ -1,5 +1,6 @@
 import { cache } from "react";
 import type { Post } from "@/types/post";
+import { fetchPostsResponse } from "@/lib/fetch-posts";
 
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
 
@@ -8,7 +9,7 @@ export async function getPosts(start = 0, limit = 5): Promise<Post[]> {
     _start: String(start),
     _limit: String(limit),
   });
-  const response = await fetch(`${API_URL}?${query}`, { cache: "no-store" });
+  const response = await fetchPostsResponse(`${API_URL}?${query}`);
 
   if (!response.ok) {
     throw new Error("Unable to load posts. Please try again.");
@@ -22,7 +23,7 @@ export const getPost = cache(async (id: string): Promise<Post | null> => {
     return null;
   }
 
-  const response = await fetch(`${API_URL}/${id}`, { cache: "no-store" });
+  const response = await fetchPostsResponse(`${API_URL}/${id}`);
 
   if (response.status === 404) {
     return null;
